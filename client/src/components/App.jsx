@@ -2,7 +2,7 @@ import { Layout, Modal } from "antd";
 import "antd/dist/antd.css";
 import React, { Component } from "react";
 import { withCookies } from "react-cookie";
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { get, post } from "../utilities";
 import "../utilities.css";
 import SideBar from "./modules/SideBar.js";
