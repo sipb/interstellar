@@ -11,7 +11,7 @@ import Public from "./pages/Public.js";
 import SignContract from "./pages/SignContract.js";
 
 const { Header, Content, Footer, Sider } = Layout;
-const currentSemester = "spring-2023";
+const currentSemester = "fall-2023";
 const listOfSemesters = [
   { name: "Spring 2020", id: "spring-2020" },
   { name: "Fall 2020", id: "fall-2020" },
