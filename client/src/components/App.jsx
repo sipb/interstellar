@@ -57,7 +57,7 @@ class App extends Component {
           Modal.warning({
             title: "Sorry, there has been an error",
             content:
-              "Please contact the interstellar team (Akshaj Kadaveru, Daniel Sun, Vivek Bhupatiraju, or Guang Cui). You can email akshajk@mit.edu.",
+              "Please contact the interstellar team at sipb-interstellar@mit.edu.",
             onOk: () => {
               this.logout();
             },

@@ -206,9 +206,9 @@ class Home extends Component {
                   FireRoad
                 </a>{" "}
                 for support and class information. This is not a catalog. Please share any bugs or
-                feedback{" "}
-                <a href="https://forms.gle/ZSdrfPZfpwngxQ3aA" target="_blank">
-                  here
+                feedback to {" "}
+                <a href="mailto:sipb-interstellar@mit.edu" target="_blank">
+                  sipb-interstellar@mit.edu
                 </a>
                 !
               </div>
