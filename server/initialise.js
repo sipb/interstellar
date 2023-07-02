@@ -4,7 +4,7 @@ const Page = require("./models/page");
 const Semester = require("./models/semester");
 
 let updateSemesters = async () => {
-  let data = await axios.get("https://fireroad.mit.edu/courseupdater/semesters/");
+  let data = await axios.get(process.env.FIREROAD_LINK + "/courseupdater/semesters/");
   let sems = data.data;
   // Put new semesters in
   console.log(sems);
@@ -109,7 +109,7 @@ initialiseClasses = async (currentSem) => {
   console.log("Starting initialization");
   await updateSemesters();
   console.log("Updated Semesters");
-  let data = await axios.get("https://fireroad.mit.edu/courses/all?full=true");
+  let data = await axios.get(process.env.FIREROAD_LINK + "/courses/all?full=true");
   let courses = data.data;
   for (var i = 0; i < courses.length; i++) {
     await addCourse(courses[i], currentSem);
