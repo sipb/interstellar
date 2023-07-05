@@ -26,7 +26,6 @@ function ensureLoggedIn(req, res, next) {
 }
 
 const fetchUserInfo = async (code) => {
-  const password = "DH3ordzkbjBra9";
   try {
     let data = await axios({
       url: process.env.FIREROAD_LINK + `fetch_token/?code=${code}`,
@@ -34,14 +33,35 @@ const fetchUserInfo = async (code) => {
     data = data.data;
     const accessToken = data.access_info.access_token;
     const email = data.access_info.academic_id;
+    const kerb = email.split('@')[0];
 
     let userData = await axios({
       url: process.env.FIREROAD_LINK + "user_info",
       headers: { Authorization: "Bearer " + accessToken },
     });
     userData = userData.data;
-    const name = userData.name;
-    return { name, email, password, accessToken };
+
+    let name = userData.name;
+
+    // If there's credentials for the people API, query the user there
+    // in order to get their name from there, as it is more likely to be correct.
+    if (process.env.MULESOFT_CLIENT_ID && process.env.MULESOFT_CLIENT_SECRET) {
+      const peopleApiResult = await axios({
+        url: "https://mit-people-v3.cloudhub.io/people/v3/people/" + kerb,
+        headers: {
+          client_id: process.env.MULESOFT_CLIENT_ID,
+          client_secret: process.env.MULESOFT_CLIENT_SECRET,
+        },
+      });
+      // The request may fail, for instance, 400 is returned for directory-suppressed students
+      if (peopleApiResult.status === 200) {
+        name = peopleApiResult.data.item.displayName;
+      }
+    } else {
+      console.log(`Warning: Mulesoft credentials not provided, so Fireroad names are being used. See https://github.com/venkatesh-sivaraman/fireroad-server/pull/55`);
+    }
+
+    return { name, email, accessToken };
   } catch (e) {
     console.log(e);
   }
@@ -59,8 +79,7 @@ const signUpLogin = async (req, res) => {
 
   const { code } = req.query;
 
-  const { name, email, password, accessToken } = await fetchUserInfo(code);
-  //console.log(name, email, password, accessToken);
+  const { name, email, accessToken } = await fetchUserInfo(code);
   try {
     let user = await User.findOne({
       email: email,
@@ -74,8 +93,6 @@ const signUpLogin = async (req, res) => {
         return res.redirect("/redirect");
       });
     } else {
-      //let schoolEmail = encodeURI(email.split("@")[1].replace(/ /g, "_"));
-      // let school = await School.findOne({ email: schoolEmail });
       user = new User({
         name: name,
         email: email,
@@ -83,7 +100,6 @@ const signUpLogin = async (req, res) => {
         isVerified: true,
       });
       console.log(`${name} registered`);
-      //console.log(user);
       await user.save(function(err) {
         if (err) {
           console.log(err.message);

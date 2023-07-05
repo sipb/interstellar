@@ -38,6 +38,8 @@ Currently, we axed some features and the site now lets you see the courseroads (
 ATLAS_SRV="mongodb://127.0.0.1:27017"
 DATABASE_NAME="test"
 FIREROAD_LINK="https://fireroad-dev.mit.edu/"
+MULESOFT_CLIENT_ID="your client ID goes here, get it from https://anypoint.mulesoft.com/exchange/applications/"
+MULESOFT_CLIENT_SECRET="your client secret goes here"
 ```
 1. In another terminal, run `npm start`
 
