@@ -93,8 +93,16 @@ class App extends Component {
   */
 
   handleLogin = () => {
+    // HACK: until Fireroad devs approve the new mit.edu URL,
+    // the old one acts as a catch-all redirect*. We are temporarily
+    // hardcoding it so we can use the production Fireroad server
+    // instead of the fireroad-dev one which displays warnings to users.
+
+    // *Only the www one. The non-www URL redirects to the www URL and drops the path,
+    // for some odd reason.
+    
     let oldLink = window.location.pathname + window.location.search;
-    let link = window.location.origin + "/api/signUpLogin";
+    let link = "https://www.interstellar.live/api/signUpLogin";
     if (ENV != "development") {
       let link = link.replace("http:", "https:")
     }
