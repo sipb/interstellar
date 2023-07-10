@@ -1,0 +1,13 @@
+[Unit]
+Description=Interstellar NodeJS backend
+After=mongod.service
+
+[Service]
+Restart=on-failure
+EnvironmentFile=/home/interstellar/interstellar/.env
+WorkingDirectory=/home/interstellar/interstellar
+ExecStart=/usr/bin/node /home/interstellar/interstellar/server/server.js
+User=interstellar
+
+[Install]
+WantedBy=multi-user.target
