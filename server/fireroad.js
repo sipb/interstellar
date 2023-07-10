@@ -92,13 +92,14 @@ async function roads(req, res) {
       url: process.env.FIREROAD_LINK + "sync/roads",
       headers: { Authorization: "Bearer " + req.user.accessToken },
     });
+    /// I HATE THIS CODE BUT I DON'T WANT TO REFACTOR IT
     res.send({
       roads: roadData.data.files,
-      yearOptions: ["2020", "2021", "2022", "2023", "2024", "2025"],
+      yearOptions: ["2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028"],
     });
   } catch (err) {
     console.log(err.message);
-    res.send({ roads: {}, yearOptions: ["2020", "2021", "2022", "2023", "2024", "2025"] });
+    res.send({ roads: {}, yearOptions: ["2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028"] });
   }
 }
 
