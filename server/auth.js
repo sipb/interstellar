@@ -46,17 +46,22 @@ const fetchUserInfo = async (code) => {
     // If there's credentials for the people API, query the user there
     // in order to get their name from there, as it is more likely to be correct.
     if (process.env.MULESOFT_CLIENT_ID && process.env.MULESOFT_CLIENT_SECRET) {
-      const peopleApiResult = await axios({
-        url: "https://mit-people-v3.cloudhub.io/people/v3/people/" + kerb,
-        headers: {
-          client_id: process.env.MULESOFT_CLIENT_ID,
-          client_secret: process.env.MULESOFT_CLIENT_SECRET,
-        },
-      });
-      // The request may fail, for instance, 400 is returned for directory-suppressed students
-      if (peopleApiResult.status === 200) {
-        name = peopleApiResult.data.item.displayName;
-      } else {
+      // Non-200 status codes throw exceptions in this language
+      try {
+        const peopleApiResult = await axios({
+          url: "https://mit-people-v3.cloudhub.io/people/v3/people/" + kerb,
+          headers: {
+            client_id: process.env.MULESOFT_CLIENT_ID,
+            client_secret: process.env.MULESOFT_CLIENT_SECRET,
+          },
+        });
+        // The request may fail, for instance, 400 is returned for directory-suppressed students
+        if (peopleApiResult.status === 200) {
+          name = peopleApiResult.data.item.displayName;
+        } else {
+          name = "NAME UNKNOWN";
+        }
+      } catch(e) {
         name = "NAME UNKNOWN";
       }
     } else {
