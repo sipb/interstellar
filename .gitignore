@@ -4,3 +4,5 @@ node_modules/
 client/src/full.json
 mongodump-prod-db
 mongodump-test-db
+ignore-*
+names.csv
