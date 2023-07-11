@@ -56,6 +56,8 @@ const fetchUserInfo = async (code) => {
       // The request may fail, for instance, 400 is returned for directory-suppressed students
       if (peopleApiResult.status === 200) {
         name = peopleApiResult.data.item.displayName;
+      } else {
+        name = "NAME UNKNOWN";
       }
     } else {
       console.log(`Warning: Mulesoft credentials not provided, so Fireroad names are being used. See https://github.com/venkatesh-sivaraman/fireroad-server/pull/55`);
