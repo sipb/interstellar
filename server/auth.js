@@ -87,14 +87,19 @@ const signUpLogin = async (req, res) => {
       email: email,
     });
     if (user) {
+      // Login
       user.accessToken = accessToken;
-      user.name = name;
+      if (name != "NAME UNKNOWN") {
+        // (We are manually updating these names in the database)
+        user.name = name;
+      }
       console.log(`${name} logged in`);
       user.save().then((user) => {
         req.session.user = user;
         return res.redirect("/redirect");
       });
     } else {
+      // Sign up (first login)
       user = new User({
         name: name,
         email: email,
