@@ -9,12 +9,6 @@ export default function InfoTab(props) {
   useEffect(() => {
     document.getElementsByClassName("ant-tabs-content")[0].style.height = "100%";
   });
-  let users = props.users.filter((user) => {
-    return user.userId !== props.user.userId || !user.userId;
-  });
-  if (props.inPage) {
-    users.push(Object.assign(props.user, { pageIds: props.pageIds }));
-  }
   let rating = String(props.page.rating);
   if (rating.length === 1) {
     rating += ".0";
@@ -61,7 +55,7 @@ export default function InfoTab(props) {
   );
   const rightHalf = (
     <UserList
-      users={users}
+      users={props.users}
       allPages={props.allPages}
       pageIds={props.pageIds}
       page={props.page}
