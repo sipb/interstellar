@@ -30,6 +30,9 @@ module.exports = (env) => ({
     publicPath: '/',
     filename: 'bundle.js',
   },
+  // This lets you use React Dev Tools
+  // mode: 'development',
+  // devtool: 'source-map',
   devtool: 'inline-source-map',
   module: {
     rules: [
