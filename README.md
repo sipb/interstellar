@@ -4,7 +4,7 @@
 ![pic of interstellar](https://i.imgur.com/SyNU3iq.png)
 ## What is Interstellar
 
-If you are a MIT student, check us out at https://www.interstellar.live ! (It requires MIT authentication to view)
+If you are a MIT student, check us out at https://interstellar.mit.edu ! (It requires MIT authentication to view)
 Interstellar is a webapp created by MIT students (Akshaj, Daniel, Vivek, and Guang) for MIT students!
 
 We started in January 2020, and the initial version was a site where you could join classes, see who else is in your class, as well as create groups with your friends to see what classes your friends are taking!
